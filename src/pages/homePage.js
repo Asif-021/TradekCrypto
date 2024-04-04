@@ -32,7 +32,9 @@ function HomePage() {
             <div className={styles.MarketTitle}>Market</div>
             <br />
             <span className={styles.DescriptionMarket}>Explore our comprehensive market analysis tools, providing real-time trends</span>
-            <div className={styles.MoreMarket}>More: Market</div>
+            <div className={styles.MoreMarket}>
+                <Link href="/market">
+                More: Market</Link></div>
           </div>
 
           <div className={styles.Forum}>
