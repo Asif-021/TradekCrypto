@@ -11,6 +11,8 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 
 
 const email = "admin@email";
+// const email = "idtest@gmail";
+// const email = localStorage.getItem("email");
 
 export default function Account() {
 

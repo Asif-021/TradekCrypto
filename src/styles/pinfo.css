@@ -1,4 +1,4 @@
-.name, .email, .username, .password, .upload-submission{
+.name, .email, .phoneNumber, .username, .password, .upload-submission{
     display: flex;
     justify-content: space-between;
     /* align-items: center; */
@@ -33,3 +33,4 @@ button:hover{
     font-size: 0.8rem;
     color: green;
 }
+

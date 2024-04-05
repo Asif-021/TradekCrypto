@@ -1,6 +1,6 @@
 import {firestore} from  '../app/db.js';
 import { useState, useEffect} from  "react";
-import { collection, getDocs, updateDoc, query, where} from 'firebase/firestore';
+import { collection, getDocs, updateDoc, query, where, doc} from 'firebase/firestore';
 import "../styles/management.css";
 
 
@@ -56,9 +56,11 @@ function Management(props){
     }
 
     const currentUser = waitingUsers[currentIndex];
+    console.log('hihihihihih')
+    console.log(currentUser)
     useEffect(() => {
             // Set the DOB and Age
-            if (currentUser){
+            if (currentUser && currentUser.dob){
                 const date = currentUser.dob.toDate();
                 const dob = `${date.getDate()}/${(date.getMonth()+1)}/${date.getFullYear()}`;
                 setCurrentDOB(dob);
@@ -68,23 +70,23 @@ function Management(props){
         
         <>
         <div className="management-container">
-            <h1>Management Panel</h1>
-        </div>
-        <div className="user-info">
-            <h2>User Info</h2>
-            <div className="info">
-                {currentUser && <p id="name">Name: {currentUser.firstName} {currentUser.lastName}</p>}
-                {currentUser && <p id="dob">DOB (DD/MM/YYY): {currentDOB}</p>}
+            <div className="user-info">
+                <h2>User Info</h2>
+                <div className="info">
+                    {currentUser && <p id="name">Name: {currentUser.firstName} {currentUser.lastName}</p>}
+                    {currentUser && <p id="dob">DOB (DD/MM/YYY): {currentDOB}</p>}
+                </div>
+                <img src={currentUser && currentUser.idURL} alt="Image of the users identification"  id="IDimage"/>
+                <div className="interact-btns-container">
+                    
+                    <button id="reject-btn" onClick={() => handleReject(currentUser.docID)}>Reject</button>
+                    <button id="approve-btn" onClick={() => handleApprove(currentUser.docID)}>Approve</button>
+                    
+                </div>
             </div>
-            <img src={currentUser && currentUser.idURL} alt="Image of the users identification"  id="IDimage"/>
-            <div className="interact-btns-container">
-                
-                <button id="reject-btn" onClick={() => handleReject(currentUser.docID)}>Reject</button>
-                <button id="approve-btn" onClick={() => handleApprove(currentUser.docID)}>Approve</button>
-                
-            </div>
+
         </div>
-        
+            
         </>
     )
 }

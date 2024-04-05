@@ -22,12 +22,13 @@
     min-width: 60%;
     max-width: 65%;
     min-height: 40%;
-    max-height: 70%;
+    max-height: 60%;
 }
 
 
 .account-options{
     flex-shrink: 0;
+    
 }
 
 .account-options ul{
@@ -42,13 +43,15 @@
 .account-options ul li:hover{
     color: hsl(63, 94%, 49%);
 }
+
 .settings{
     border-left: solid #fff 0.1rem;
     padding-left: 2rem;
     box-sizing: border-box;
-    display: block;
+    display: flex;
     flex-direction: column;
     flex: 1;
+    overflow: auto;
     
     
 }

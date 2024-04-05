@@ -7,7 +7,7 @@ import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
 // Checks only allowed file types (images) are uploaded
 const isFileAllowed = (filename) => {
     // Array of allowed file types
-    const allowedFileTypes = ["jpeg", "png", "heic", "jpg"];
+    const allowedFileTypes = ["jpeg", "png", "jpg"];
 
     console.log(allowedFileTypes);
     // Isolates extension
@@ -23,7 +23,8 @@ function UploadFile(props) {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [errors, setErrors] = useState({});
-    const [success, setSuccess] = useState(null);
+    const [success, setSuccess] = useState({});
+
   
     const handleFileChange = (e) => {
       const file = e.target.files[0];
@@ -52,7 +53,8 @@ function UploadFile(props) {
         }
 
         setSelectedFile(file);
-        setSuccess(true);
+        setSuccess(p => ({...p, validType: true}));
+      
     };
   
     const handleUpload = async () => {
@@ -86,9 +88,10 @@ function UploadFile(props) {
           // Reset the state
           setSelectedFile(null);
           setErrors({});
-          setSuccess(null);
+          setSuccess(() => ({uploaded: true}));
           props.setUploaded(true);
-          console.log(props.uploaded);
+
+  
         } catch (error) {
           console.error("Error uploading file:", error);
         }
@@ -97,13 +100,16 @@ function UploadFile(props) {
   
     return (
       <div className="upload-container">
-        <div className="upload-submission">
-            <input type="file" onChange={handleFileChange} />
-            <button onClick={handleUpload}>Upload Identification</button>
-        </div>
-        {errors.typeError && <div className="error">Invalid File Type! Please select an image file (.jpg/.jpeg/.png/.heic)</div>}
+        {!success.uploaded && (
+          <div className="upload-submission">
+              <input type="file" onChange={handleFileChange} />
+              <button onClick={handleUpload}>Upload Identification</button>
+          </div>
+          )}
+        {errors.typeError && <div className="error">Invalid File Type! Please select an image file (.jpg/.jpeg/.png)</div>}
         {errors.sizeError && <div className="error">Invalid File Size! Please select an image file below 10MB</div>}
-        {success && <div className="success">Valid File Size and Type! Ready to upload.</div>}
+        {success.validType && <div className="success">Valid File Size and Type! Ready to upload.</div>}
+        {success.uploaded && <div className="success">Upload successful, awaiting approval</div>}
       </div>
     );
   }
