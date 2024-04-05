@@ -11,23 +11,23 @@ async function addDataToFireStore(name, surname, username, email, password) {
 
     // Add user data to 'User Info' collection
     const userDocRef = await addDoc(collection(firestore, "User Info"), {
-      name: name,
-      surname: surname,
+      firstName: name,
+      lastName: surname,
       username: username,
       email: email,
       password: password,
-      Admin: false,
-      Approved: false,
-      Approvefirestorey: "",
-      Balance: 0,
-      DateJoined: dateJoined,
+      admin: false,
+      approved: false,
+      approvedBy: "",
+      balance: 0,
+      dateJoined: dateJoined,
       idURL: "",
       rejected: false
     });
 
     // Add user data to 'cryptoHoldings' collection
     const cryptoDocRef = await addDoc(collection(firestore, "cryptoHoldings"), {
-      username: username,
+      userID: userDocRef.id,
       holdings: {} // Empty holdings map
     });
 

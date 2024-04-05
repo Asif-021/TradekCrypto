@@ -73,7 +73,7 @@ export default function Account() {
                         {!data.admin && <>
                                             <li onClick={() => setActiveSetting("wallet")}>Wallet</li>
                                             <li onClick={() => setActiveSetting("transHistory")}>Transaction History</li>
-                                            {/* <li onClick={() => setActiveSetting("portfolio")}>Portfolio</li> */}
+                                            <li onClick={() => setActiveSetting("portfolio")}>Portfolio</li>
                                         </>}
                         {data.admin && <li onClick={() => setActiveSetting("management")}>Management</li>}
                     </ul>

@@ -13,6 +13,7 @@ function Management(props){
     const [currentDOB, setCurrentDOB] = useState(null);
     const [age, setAge] = useState(0);
 
+    
     // Get all users that are yet to be approved
     useEffect(() => {
         async function fetchUserInfo() {
@@ -55,11 +56,12 @@ function Management(props){
     }
 
     const currentUser = waitingUsers[currentIndex];
-    useEffect({
+    useEffect(() => {
             // Set the DOB and Age
             if (currentUser){
                 const date = currentUser.dob.toDate();
-                const dob = `${date.getDate()}-${(date.getMonth()+1)}-${date.getYear()}`;
+                const dob = `${date.getDate()}/${(date.getMonth()+1)}/${date.getFullYear()}`;
+                setCurrentDOB(dob);
             }
     }), [currentUser];
     return(
@@ -71,12 +73,15 @@ function Management(props){
         <div className="user-info">
             <h2>User Info</h2>
             <div className="info">
-                {currentUser && <p id="name">{currentUser.firstName} {currentUser.lastName}</p>}
+                {currentUser && <p id="name">Name: {currentUser.firstName} {currentUser.lastName}</p>}
+                {currentUser && <p id="dob">DOB (DD/MM/YYY): {currentDOB}</p>}
             </div>
             <img src={currentUser && currentUser.idURL} alt="Image of the users identification"  id="IDimage"/>
             <div className="interact-btns-container">
-                <button id="approve-btn" onClick={() => handleApprove(currentUser.docID)}>Approve</button>
+                
                 <button id="reject-btn" onClick={() => handleReject(currentUser.docID)}>Reject</button>
+                <button id="approve-btn" onClick={() => handleApprove(currentUser.docID)}>Approve</button>
+                
             </div>
         </div>
         
